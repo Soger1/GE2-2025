@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bikghdvt66rgi"]
+[gd_scene load_steps=5 format=3 uid="uid://bikghdvt66rgi"]
 
 [ext_resource type="PackedScene" uid="uid://cijwtwot3fw4i" path="res://scenes/FishTank.tscn" id="1_o5qli"]
+[ext_resource type="PackedScene" uid="uid://b3nl5ppd4g13i" path="res://scenes/Fish.tscn" id="2_0wfyh"]
+[ext_resource type="Script" uid="uid://bl4arguabp5kt" path="res://scripts/FoodSpawner.gd" id="3_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://bx4q8si2i16oc" path="res://scenes/Food.tscn" id="4_tbgi4"]
 
 [node name="Node3D" type="Node3D"]
 
@@ -9,10 +12,19 @@
 [node name="FoodManager" type="Node3D" parent="."]
 
 [node name="FishTank" parent="." instance=ExtResource("1_o5qli")]
+transform = Transform3D(4.2696, 0, 0, 0, 3.09301, 0, 0, 0, 4.06513, 0, 0, 0)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.517295, 0.855807, 0, -0.855807, 0.517295, -0.250194, 2.61636, 2.51027)
+transform = Transform3D(1, 0, 0, 0, 0.0482396, 0.998836, 0, -0.998836, 0.0482396, -0.250194, 7.19424, 0.499682)
 light_energy = 2.33
+spot_range = 9.525
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.982398, 0.186798, 0, -0.186798, 0.982398, 0, 1.10635, 2.45981)
+transform = Transform3D(1, 0, 0, 0, 0.728933, 0.684585, 0, -0.684585, 0.728933, 0, 6.04475, 5.82816)
+
+[node name="Fish" parent="." instance=ExtResource("2_0wfyh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0141765, 1.19209e-07, -0.0343152)
+
+[node name="FoodSpawner" type="Node3D" parent="."]
+script = ExtResource("3_jyhfs")
+food_scene = ExtResource("4_tbgi4")

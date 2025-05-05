@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://bx4q8si2i16oc"]
+
+[ext_resource type="Script" uid="uid://cpsr8tuvvdyao" path="res://scripts/FoodItem.gd" id="1_2jwtx"]
+[ext_resource type="Material" uid="uid://k0366s72orde" path="res://materials/resources/food.tres" id="2_w7sr0"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_rjrnx"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_xlmae"]
+material = ExtResource("2_w7sr0")
+radius = 0.05
+height = 0.1
+
+[node name="Food" type="RigidBody3D"]
+script = ExtResource("1_2jwtx")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+shape = SubResource("SphereShape3D_rjrnx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_xlmae")
