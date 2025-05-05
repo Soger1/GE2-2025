@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://bikghdvt66rgi"]
+
+[ext_resource type="PackedScene" uid="uid://cijwtwot3fw4i" path="res://scenes/FishTank.tscn" id="1_o5qli"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+
+[node name="FoodManager" type="Node3D" parent="."]
+
+[node name="FishTank" parent="." instance=ExtResource("1_o5qli")]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.517295, 0.855807, 0, -0.855807, 0.517295, -0.250194, 2.61636, 2.51027)
+light_energy = 2.33
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.982398, 0.186798, 0, -0.186798, 0.982398, 0, 1.10635, 2.45981)

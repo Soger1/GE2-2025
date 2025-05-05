@@ -1,0 +1,24 @@
+[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://qpx5j0iwvxq6"]
+
+[ext_resource type="Shader" uid="uid://ctto13ha7ltw2" path="res://materials/water.gdshader" id="1_6gfwt"]
+[ext_resource type="Texture2D" uid="uid://djch73ahuhk3u" path="res://materials/resources/WaterNoise.tres" id="2_4lgl7"]
+[ext_resource type="Texture2D" uid="uid://ctqxjf64opvtx" path="res://materials/resources/Caustic.tres" id="2_6tan1"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_6gfwt")
+shader_parameter/deep_color = Color(0.28, 0.508, 1, 0.541176)
+shader_parameter/shallow_color = Color(0, 0.4, 0.8, 0.282353)
+shader_parameter/metallic = 0.1
+shader_parameter/roughness = 0.05
+shader_parameter/wave_speed = 0.5
+shader_parameter/wave_strength = 0.05
+shader_parameter/wave_direction_1 = Vector2(1, 0)
+shader_parameter/wave_direction_2 = Vector2(0, 1)
+shader_parameter/wave_noise = ExtResource("2_4lgl7")
+shader_parameter/caustics_texture = ExtResource("2_6tan1")
+shader_parameter/caustics_strength = 0.1
+shader_parameter/caustics_scale = 5.0
+shader_parameter/caustics_speed = 0.1
+shader_parameter/refraction_scale = 0.2
+shader_parameter/depth_scale = 1.0

@@ -1,0 +1,52 @@
+[gd_resource type="AnimatedTexture" load_steps=16 format=3 uid="uid://ctqxjf64opvtx"]
+
+[ext_resource type="Texture2D" uid="uid://b4ead2pd5adhj" path="res://materials/resources/caustictextures/caust_001.png" id="1_j1yr4"]
+[ext_resource type="Texture2D" uid="uid://c0ffi2wkjgmf0" path="res://materials/resources/caustictextures/caust_002.png" id="2_jgjr6"]
+[ext_resource type="Texture2D" uid="uid://bucwbsxevotk2" path="res://materials/resources/caustictextures/caust_010.png" id="3_pd1tr"]
+[ext_resource type="Texture2D" uid="uid://dka7qm2l2fl3a" path="res://materials/resources/caustictextures/caust_011.png" id="4_hbyp7"]
+[ext_resource type="Texture2D" uid="uid://cjilyf7b5e8mu" path="res://materials/resources/caustictextures/caust_012.png" id="5_lyvq2"]
+[ext_resource type="Texture2D" uid="uid://c88hkys6y5xgl" path="res://materials/resources/caustictextures/caust_013.png" id="6_xh2pj"]
+[ext_resource type="Texture2D" uid="uid://525scr3wk73y" path="res://materials/resources/caustictextures/caust_014.png" id="7_hexwu"]
+[ext_resource type="Texture2D" uid="uid://c8l0yumy78uec" path="res://materials/resources/caustictextures/caust_015.png" id="8_bx5rr"]
+[ext_resource type="Texture2D" uid="uid://dm4rhjv4u15nj" path="res://materials/resources/caustictextures/caust_003.png" id="9_2jwid"]
+[ext_resource type="Texture2D" uid="uid://bgrsmi6dec8ne" path="res://materials/resources/caustictextures/caust_004.png" id="10_p2nkn"]
+[ext_resource type="Texture2D" uid="uid://bp4vkt6nc3eig" path="res://materials/resources/caustictextures/caust_005.png" id="11_jsdnb"]
+[ext_resource type="Texture2D" uid="uid://bok585di8gock" path="res://materials/resources/caustictextures/caust_006.png" id="12_408wt"]
+[ext_resource type="Texture2D" uid="uid://bb2n7dxh037lv" path="res://materials/resources/caustictextures/caust_007.png" id="13_sx00n"]
+[ext_resource type="Texture2D" uid="uid://0d2k4o53hwn8" path="res://materials/resources/caustictextures/caust_008.png" id="14_rob6c"]
+[ext_resource type="Texture2D" uid="uid://iaxqdbtjhlkd" path="res://materials/resources/caustictextures/caust_009.png" id="15_uq00c"]
+
+[resource]
+frames = 16
+speed_scale = 17.0
+frame_0/texture = ExtResource("1_j1yr4")
+frame_1/texture = ExtResource("2_jgjr6")
+frame_1/duration = 1.0
+frame_2/texture = ExtResource("9_2jwid")
+frame_2/duration = 1.0
+frame_3/texture = ExtResource("10_p2nkn")
+frame_3/duration = 1.0
+frame_4/texture = ExtResource("10_p2nkn")
+frame_4/duration = 1.0
+frame_5/texture = ExtResource("11_jsdnb")
+frame_5/duration = 1.0
+frame_6/texture = ExtResource("12_408wt")
+frame_6/duration = 1.0
+frame_7/texture = ExtResource("13_sx00n")
+frame_7/duration = 1.0
+frame_8/texture = ExtResource("14_rob6c")
+frame_8/duration = 1.0
+frame_9/texture = ExtResource("15_uq00c")
+frame_9/duration = 1.0
+frame_10/texture = ExtResource("3_pd1tr")
+frame_10/duration = 1.0
+frame_11/texture = ExtResource("4_hbyp7")
+frame_11/duration = 1.0
+frame_12/texture = ExtResource("5_lyvq2")
+frame_12/duration = 1.0
+frame_13/texture = ExtResource("6_xh2pj")
+frame_13/duration = 1.0
+frame_14/texture = ExtResource("7_hexwu")
+frame_14/duration = 1.0
+frame_15/texture = ExtResource("8_bx5rr")
+frame_15/duration = 1.0
