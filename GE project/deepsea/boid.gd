@@ -1,1 +1,0 @@
-class_name Boid extends CharacterBody3D
