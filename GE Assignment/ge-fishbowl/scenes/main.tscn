@@ -28,3 +28,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0141765, 1.19209e-07, -0.03
 [node name="FoodSpawner" type="Node3D" parent="."]
 script = ExtResource("3_jyhfs")
 food_scene = ExtResource("4_tbgi4")
+
+[node name="Fish2" parent="." instance=ExtResource("2_0wfyh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.722276, -0.23509, -0.0535179)
+
+[node name="Fish3" parent="." instance=ExtResource("2_0wfyh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.846165, -0.229838, -0.151636)
