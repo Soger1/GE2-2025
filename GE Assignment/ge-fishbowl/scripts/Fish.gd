@@ -2,10 +2,10 @@
 extends CharacterBody3D
 
 # Properties
-@export var max_speed: float = 5.0
+@export var max_speed: float = 2.0
 @export var mass: float = 1.0
 @export var hunger_rate: float = 0.1  # How quickly the fish gets hungry
-@export var rotation_speed: float = 3.0
+@export var rotation_speed: float = 5.0
 
 # Current state
 var hunger: float = 0.0  # 0 = full, 1 = starving
@@ -58,6 +58,7 @@ func _ready():
 func _physics_process(delta):
 	# Update hunger
 	hunger = min(hunger + hunger_rate * delta, 1.0)
+	food_weight = 2.0 *(1 + hunger)
 	
 	# Calculate steering forces from each behavior
 	var final_steering = Vector3.ZERO  # Use Vector2 for 2D

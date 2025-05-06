@@ -27,7 +27,7 @@ func calculate_steering():
 	var distance = direction_to_food.length()
 	
 	# If we're within arrival radius, slow down
-	var target_velocity = direction_to_food.normalized() * parent_fish.max_speed
+	var target_velocity = direction_to_food.normalized() * (parent_fish.max_speed + 1)
 	if distance < arrival_radius:
 		target_velocity *= (distance / arrival_radius)
 	

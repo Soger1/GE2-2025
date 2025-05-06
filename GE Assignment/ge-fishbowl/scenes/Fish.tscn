@@ -1,53 +1,86 @@
-[gd_scene load_steps=10 format=3 uid="uid://b3nl5ppd4g13i"]
+[gd_scene load_steps=14 format=3 uid="uid://b3nl5ppd4g13i"]
 
 [ext_resource type="Script" uid="uid://j40jwilsljkk" path="res://scripts/Fish.gd" id="1_431eu"]
-[ext_resource type="Material" uid="uid://cavr8ieoeiukb" path="res://materials/resources/fish.tres" id="1_psuch"]
+[ext_resource type="Script" uid="uid://c23j8bg8rxva1" path="res://spine_animator.gd" id="1_cwt5k"]
+[ext_resource type="Material" uid="uid://cavr8ieoeiukb" path="res://materials/fish.tres" id="1_psuch"]
 [ext_resource type="Script" uid="uid://daihqlo6dobod" path="res://scripts/BoundryBehavior.gd" id="3_38rrr"]
 [ext_resource type="Script" uid="uid://cs6fsjhol5qm6" path="res://scripts/EnergyConservationBehavior.gd" id="4_cwt5k"]
 [ext_resource type="Script" uid="uid://beqyqsfjgty77" path="res://scripts/WanderBehavior.gd" id="5_n3qfj"]
 [ext_resource type="Script" uid="uid://cl07yeqs3jdvw" path="res://scripts/FoodSeekingBehavior.gd" id="6_7yk10"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_431eu"]
+[sub_resource type="CylinderMesh" id="CylinderMesh_38rrr"]
 material = ExtResource("1_psuch")
-radius = 0.1
-height = 0.5
-radial_segments = 16
+height = 0.3
 
-[sub_resource type="PrismMesh" id="PrismMesh_02ob7"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_cwt5k"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_cwt5k"]
 material = ExtResource("1_psuch")
-size = Vector3(0.2, 0.15, 0.02)
+size = Vector3(1, 1, 0.2)
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_02ob7"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_n3qfj"]
 
-[node name="Fish" type="CharacterBody3D"]
+[sub_resource type="BoxMesh" id="BoxMesh_n3qfj"]
+material = ExtResource("1_psuch")
+size = Vector3(0.4, 0.9, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_38rrr"]
+
+[node name="Node3D" type="Node3D"]
+transform = Transform3D(-0.354321, 0, 0, 0, 1, 0, 0, 0, 0.648514, 0, 0, 0)
+
+[node name="Node" type="Node" parent="."]
+
+[node name="SpineAnimator" type="Node" parent="Node" node_paths=PackedStringArray("bones")]
+script = ExtResource("1_cwt5k")
+bones = [NodePath("../Fish"), NodePath("../body"), NodePath("../tail")]
+
+[node name="Fish" type="CharacterBody3D" parent="Node"]
+collision_layer = 524288
 script = ExtResource("1_431eu")
 
-[node name="body" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
-mesh = SubResource("CapsuleMesh_431eu")
+[node name="Behaviors" type="Node" parent="Node/Fish"]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="body"]
-transform = Transform3D(4.37114e-08, 3.82137e-15, -1, 8.74228e-08, -1, 0, -1, -8.74228e-08, -4.37114e-08, 0, 0.282559, -1.2351e-08)
-mesh = SubResource("PrismMesh_02ob7")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="body"]
-transform = Transform3D(-2.56633, -1.31134e-07, 0.00132312, 3.36682e-07, -1, 4.3602e-08, 0.00340409, 4.38853e-08, 0.997497, 0, -0.0212182, 9.27475e-10)
-mesh = SubResource("PrismMesh_02ob7")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(0.4, 0.000476618, -2.26749e-05, -2.1477e-05, -0.00100521, -0.399999, -0.000476673, 0.399998, -0.00100518, 0, 0, 0)
-shape = SubResource("CapsuleShape3D_02ob7")
-
-[node name="Behaviors" type="Node" parent="."]
-
-[node name="BoundaryBehavior" type="Node" parent="Behaviors"]
+[node name="BoundaryBehavior" type="Node" parent="Node/Fish/Behaviors"]
 script = ExtResource("3_38rrr")
 
-[node name="EnergyConservationBehavior" type="Node" parent="Behaviors"]
+[node name="EnergyConservationBehavior" type="Node" parent="Node/Fish/Behaviors"]
 script = ExtResource("4_cwt5k")
 
-[node name="WanderBehavior" type="Node" parent="Behaviors"]
+[node name="WanderBehavior" type="Node" parent="Node/Fish/Behaviors"]
 script = ExtResource("5_n3qfj")
 
-[node name="FoodSeekingBehavior" type="Node" parent="Behaviors"]
+[node name="FoodSeekingBehavior" type="Node" parent="Node/Fish/Behaviors"]
 script = ExtResource("6_7yk10")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node/Fish"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_38rrr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Fish"]
+transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0)
+shape = SubResource("SphereShape3D_cwt5k")
+
+[node name="tail" type="CharacterBody3D" parent="Node"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.091204, 0, 2.58925)
+collision_layer = 524288
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node/tail"]
+transform = Transform3D(1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 0, -4.37114e-08, -1, -4.37114e-08, 0.0884503, 0, 1.40094)
+mesh = SubResource("PrismMesh_cwt5k")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/tail"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0984257, -5.96046e-08, 1.54856)
+shape = SubResource("SphereShape3D_n3qfj")
+
+[node name="body" type="CharacterBody3D" parent="Node"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.1094)
+collision_layer = 524288
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node/body"]
+transform = Transform3D(0.745485, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.703287)
+mesh = SubResource("BoxMesh_n3qfj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Node/body"]
+transform = Transform3D(1, 0, 0, 0, 0.00809823, -0.999967, 0, 0.999967, 0.00809823, 0, 0, 0.633881)
+shape = SubResource("CapsuleShape3D_38rrr")
