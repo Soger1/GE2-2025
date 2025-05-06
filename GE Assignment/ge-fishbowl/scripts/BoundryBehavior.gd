@@ -3,7 +3,7 @@ extends Node
 # Boundary parameters
 @export var detection_distance: float = 3.0  # How far to check for boundaries
 @export var boundary_force: float = 5.0  # How strongly to avoid boundaries
-@export var tank_size: Vector3 = Vector3(7, 4, 4)  # Size of tank (adjust as needed)
+@export var tank_size: Vector3 = Vector3(10, 6, 6)  # Size of tank (adjust as needed)
 
 # Internal variables
 var parent_fish = null

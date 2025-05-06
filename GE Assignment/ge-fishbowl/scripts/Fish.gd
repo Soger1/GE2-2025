@@ -1,7 +1,8 @@
-extends CharacterBody3D  # Or CharacterBody2D if you're making a 2D game
+# Fish.gd
+extends CharacterBody3D
 
 # Properties
-@export var max_speed: float = 2.0
+@export var max_speed: float = 5.0
 @export var mass: float = 1.0
 @export var hunger_rate: float = 0.1  # How quickly the fish gets hungry
 @export var rotation_speed: float = 3.0
@@ -22,7 +23,17 @@ var boundary_behavior
 var food_seeking_behavior
 var energy_conservation_behavior
 
+# Debug
+@export var debug_mode: bool = true
+
 func _ready():
+	# Setup collision detection
+	collision_layer = 2  # Layer 2 for fish
+	collision_mask = 1 | 4 | 8  # Collide with environment (1), water surface (4), and food (8)
+	
+	# Add to fish group
+	add_to_group("fish")
+	
 	# Get behavior nodes
 	wander_behavior = $Behaviors/WanderBehavior
 	boundary_behavior = $Behaviors/BoundaryBehavior
@@ -38,6 +49,11 @@ func _ready():
 		food_seeking_behavior.initialize(self)
 	if energy_conservation_behavior:
 		energy_conservation_behavior.initialize(self)
+	
+	# Debug info
+	if debug_mode:
+		print("Fish initialized with collision layer: ", collision_layer)
+		print("Fish collision mask: ", collision_mask)
 
 func _physics_process(delta):
 	# Update hunger
@@ -61,6 +77,11 @@ func _physics_process(delta):
 		food_weight = lerp(1.0, 3.0, hunger)  # Food becomes more important as hunger increases
 		var food_force = food_seeking_behavior.calculate_steering() * food_weight
 		final_steering += food_force
+		
+		# Debug - print when fish is seeking food
+		if debug_mode and food_seeking_behavior.current_target != null:
+			print("Fish is seeking food. Distance to food: ", 
+				  global_transform.origin.distance_to(food_seeking_behavior.target_position))
 	
 	# Apply energy conservation when not hungry
 	if energy_conservation_behavior and hunger < 0.3:
@@ -71,7 +92,7 @@ func _physics_process(delta):
 	apply_steering(final_steering, delta)
 	
 	# Move the fish
-	move_and_slide()
+	var collision = move_and_slide()
 	
 	# Handle collisions
 	handle_collisions()
@@ -96,16 +117,28 @@ func apply_steering(steering: Vector3, delta: float):
 
 func handle_collisions():
 	# Check if we're colliding with food
-	for i in get_slide_collision_count():
+	for i in range(get_slide_collision_count()):
 		var collision = get_slide_collision(i)
 		var collider = collision.get_collider()
 		
 		if collider.is_in_group("food"):
+			if debug_mode:
+				print("Fish collided with food: ", collider.name)
 			eat_food(collider)
+
+# Alternative method to detect food via Area3D
+func _on_food_detector_area_entered(area):
+	if area.is_in_group("food"):
+		if debug_mode:
+			print("Fish detected food in detector area: ", area.name)
+		eat_food(area)
 
 func eat_food(food_item):
 	# Reduce hunger
 	hunger = max(hunger - 0.5, 0)
+	
+	if debug_mode:
+		print("Fish eating food. New hunger level: ", hunger)
 	
 	# Destroy the food
 	food_item.queue_free()

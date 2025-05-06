@@ -30,7 +30,7 @@ script = ExtResource("3_jyhfs")
 food_scene = ExtResource("4_tbgi4")
 
 [node name="Fish2" parent="." instance=ExtResource("2_0wfyh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.722276, -0.23509, -0.0535179)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.628391, -0.139071, -0.117021)
 
 [node name="Fish3" parent="." instance=ExtResource("2_0wfyh")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.846165, -0.229838, -0.151636)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.66421, -0.229838, -0.151636)
