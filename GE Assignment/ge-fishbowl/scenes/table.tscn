@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://x5gjt7kh2x20"]
+
+[ext_resource type="Texture2D" uid="uid://d4lvqmaxpe3qh" path="res://materials/resources/wood1.jpg" id="1_eotx8"]
+[ext_resource type="Material" uid="uid://dh1i4ltc3b5cq" path="res://materials/wood.tres" id="2_x8522"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_olh0b"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u03e6"]
+next_pass = ExtResource("2_x8522")
+albedo_texture = ExtResource("1_eotx8")
+albedo_texture_force_srgb = true
+
+[node name="Table" type="Node3D"]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="CSGCombiner3D"]
+transform = Transform3D(2.03849, 0, 0, 0, 0.0688567, 0, 0, 0, 1, 0, 0.469016, 0)
+mesh = SubResource("BoxMesh_olh0b")
+material = SubResource("StandardMaterial3D_u03e6")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 0.235862, 0, 0, 0, 1, 0, 0.215901, 0)
+material = ExtResource("2_x8522")

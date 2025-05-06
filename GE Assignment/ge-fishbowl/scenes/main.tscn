@@ -1,12 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://bikghdvt66rgi"]
+[gd_scene load_steps=10 format=3 uid="uid://bikghdvt66rgi"]
 
 [ext_resource type="PackedScene" uid="uid://cijwtwot3fw4i" path="res://scenes/FishTank.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://dj3asqgdppmwi" path="res://scripts/main.gd" id="1_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://b3nl5ppd4g13i" path="res://scenes/Fish.tscn" id="2_0wfyh"]
-[ext_resource type="Script" uid="uid://b2pfptpgrsles" path="res://scenes/camera_wasd.gd" id="2_tbgi4"]
+[ext_resource type="Script" uid="uid://b2pfptpgrsles" path="res://scripts/camera_wasd.gd" id="2_tbgi4"]
 [ext_resource type="Script" uid="uid://bl4arguabp5kt" path="res://scripts/FoodSpawner.gd" id="3_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://bx4q8si2i16oc" path="res://scenes/Food.tscn" id="4_tbgi4"]
 [ext_resource type="AudioStream" uid="uid://b0qrq37lpabvr" path="res://materials/resources/fishsong.wav" id="7_tipki"]
+[ext_resource type="PackedScene" uid="uid://x5gjt7kh2x20" path="res://scenes/table.tscn" id="8_tipki"]
+[ext_resource type="PackedScene" uid="uid://o1kbfc8h722c" path="res://scenes/radio.tscn" id="9_85g3d"]
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_o6xl0")
@@ -16,12 +18,15 @@ script = ExtResource("1_o6xl0")
 [node name="FoodManager" type="Node3D" parent="."]
 
 [node name="FishTank" parent="." instance=ExtResource("1_o5qli")]
-transform = Transform3D(4.2696, 0, 0, 0, 3.09301, 0, 0, 0, 4.06513, 0, 0, 0)
+transform = Transform3D(10, 0, 0, 0, 7.244, 0, 0, 0, 9.52, 0, 0, 0)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.0482396, 0.998836, 0, -0.998836, 0.0482396, -0.250194, 7.19424, 0.499682)
-light_energy = 2.33
-spot_range = 9.525
+transform = Transform3D(1, 0, 0, 0, 0.0482396, 0.998836, 0, -0.998836, 0.0482396, -0.653761, 17.9023, 0.499682)
+light_energy = 7.99
+light_indirect_energy = 4.2
+light_volumetric_fog_energy = 4.352
+spot_range = 38.865
+spot_angle = 62.14
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.728933, 0.684585, 0, -0.684585, 0.728933, 0, 6.04475, 5.82816)
@@ -35,6 +40,13 @@ script = ExtResource("3_jyhfs")
 food_scene = ExtResource("4_tbgi4")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.4632, -2.8917, 4.86049)
 stream = ExtResource("7_tipki")
 volume_db = -10.09
 autoplay = true
+
+[node name="Table" parent="." instance=ExtResource("8_tipki")]
+transform = Transform3D(14, 0, 0, 0, 14, 0, 0, 0, 14, -2.45678, -12.1018, 2.49924)
+
+[node name="Radio" parent="." instance=ExtResource("9_85g3d")]
+transform = Transform3D(1.67643, 0, 1.09068, 0, 2, 0, -1.09068, 0, 1.67643, -14.3189, -3.35191, 3.81347)

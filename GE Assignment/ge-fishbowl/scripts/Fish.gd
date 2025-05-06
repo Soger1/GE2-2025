@@ -10,18 +10,22 @@ extends CharacterBody3D
 # Current state
 var hunger: float = 0.0  # 0 = full, 1 = starving
 var current_target = null
+var repo: float = 0.0
+@export var fishscene:PackedScene
 
 # Behavior weights - can be adjusted dynamically
 @export var wander_weight: float = 1.0
 @export var boundary_weight: float = 3.0  # High priority to avoid walls
 @export var food_weight: float = 2.0
 @export var energy_conservation_weight: float = 0.5
+@export var flocking_weight: float = 1.5
 
 # Behavior nodes - will be assigned in _ready()
 var wander_behavior
 var boundary_behavior
 var food_seeking_behavior
 var energy_conservation_behavior
+var flocking_behavior
 
 # Debug
 @export var debug_mode: bool = true
@@ -30,6 +34,7 @@ func _ready():
 	# Setup collision detection
 	collision_layer = 2  # Layer 2 for fish
 	collision_mask = 1 | 4 | 8  # Collide with environment (1), water surface (4), and food (8)
+	fishscene = load("res://scenes/Fish.tscn")
 	
 	# Add to fish group
 	add_to_group("fish")
@@ -39,6 +44,7 @@ func _ready():
 	boundary_behavior = $Behaviors/BoundaryBehavior
 	food_seeking_behavior = $Behaviors/FoodSeekingBehavior
 	energy_conservation_behavior = $Behaviors/EnergyConservationBehavior
+	flocking_behavior = $Behaviors/FlockingBehavior
 	
 	# Initialize behaviors
 	if wander_behavior:
@@ -49,11 +55,23 @@ func _ready():
 		food_seeking_behavior.initialize(self)
 	if energy_conservation_behavior:
 		energy_conservation_behavior.initialize(self)
+	if flocking_behavior:
+		flocking_behavior.initialize(self)
+		
+	randomize_fish()
 	
 	# Debug info
 	if debug_mode:
 		print("Fish initialized with collision layer: ", collision_layer)
 		print("Fish collision mask: ", collision_mask)
+		
+func randomize_fish():
+	max_speed = max_speed * randf_range(0.8, 1.2)
+	mass = mass * randf_range(0.9, 1.1)
+	wander_weight *= randf_range(0.8, 1.2)
+	food_weight *= randf_range(0.9, 1.1)
+	flocking_weight *= randf_range(0.8, 1.2)
+	pass
 
 func _physics_process(delta):
 	# Update hunger
@@ -137,6 +155,12 @@ func _on_food_detector_area_entered(area):
 func eat_food(food_item):
 	# Reduce hunger
 	hunger = max(hunger - 0.5, 0)
+	repo = repo + 1
+	if repo >= 10:
+		repo = 0
+		var fish = fishscene.instantiate()
+		fish.transform.origin = global_transform.origin
+		get_parent().add_child(fish)
 	
 	if debug_mode:
 		print("Fish eating food. New hunger level: ", hunger)

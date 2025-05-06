@@ -7,22 +7,16 @@
 [ext_resource type="Script" uid="uid://cs6fsjhol5qm6" path="res://scripts/EnergyConservationBehavior.gd" id="4_cwt5k"]
 [ext_resource type="Script" uid="uid://beqyqsfjgty77" path="res://scripts/WanderBehavior.gd" id="5_n3qfj"]
 [ext_resource type="Script" uid="uid://cl07yeqs3jdvw" path="res://scripts/FoodSeekingBehavior.gd" id="6_7yk10"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_38rrr"]
-material = ExtResource("1_psuch")
-height = 0.3
+[ext_resource type="Script" uid="uid://c5gia1ia4le6l" path="res://scripts/FlockingBehavior.gd" id="7_n3qfj"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_cwt5k"]
 
-[sub_resource type="PrismMesh" id="PrismMesh_cwt5k"]
-material = ExtResource("1_psuch")
-size = Vector3(1, 1, 0.2)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cwt5k"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n3qfj"]
+albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_n3qfj"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_n3qfj"]
-material = ExtResource("1_psuch")
-size = Vector3(0.4, 0.9, 1)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_38rrr"]
 
@@ -38,6 +32,7 @@ bones = [NodePath("../Fish"), NodePath("../body"), NodePath("../tail")]
 [node name="Fish" type="CharacterBody3D" parent="Node"]
 collision_layer = 524288
 script = ExtResource("1_431eu")
+fishscene = null
 
 [node name="Behaviors" type="Node" parent="Node/Fish"]
 
@@ -53,34 +48,84 @@ script = ExtResource("5_n3qfj")
 [node name="FoodSeekingBehavior" type="Node" parent="Node/Fish/Behaviors"]
 script = ExtResource("6_7yk10")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node/Fish"]
-transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
-mesh = SubResource("CylinderMesh_38rrr")
+[node name="FlockingBehavior" type="Node" parent="Node/Fish/Behaviors"]
+script = ExtResource("7_n3qfj")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/Fish"]
 transform = Transform3D(1.3, 0, 0, 0, 1.3, 0, 0, 0, 1.3, 0, 0, 0)
 shape = SubResource("SphereShape3D_cwt5k")
 
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="Node/Fish"]
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Node/Fish/CSGCombiner3D"]
+transform = Transform3D(0.00549774, -0.131949, 0, 0.999985, 0.00072543, 0, 0, 0, 1.35295, 0, 0, 0)
+material = ExtResource("1_psuch")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Node/Fish/CSGCombiner3D"]
+transform = Transform3D(-0.00216285, -0.143372, 0, 0.197006, -0.00157402, 0, 0, 0, 0.2259, 0, -0.108892, -0.109819)
+material = SubResource("StandardMaterial3D_cwt5k")
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Node/Fish/CSGCombiner3D"]
+transform = Transform3D(-0.00150269, -0.153258, 0, 0.136875, -0.00168255, 0, 0, 0, 0.144907, 0, -0.108892, -0.109819)
+material = SubResource("StandardMaterial3D_n3qfj")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Node/Fish/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 0.160581, -0.0908229, 0, 0.0626434, 0.232817, 0, -0.240037, -0.558154)
+operation = 2
+material = ExtResource("1_psuch")
+
 [node name="tail" type="CharacterBody3D" parent="Node"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.091204, 0, 2.58925)
 collision_layer = 524288
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node/tail"]
-transform = Transform3D(1.91069e-15, 4.37114e-08, -1, 1, -4.37114e-08, 0, -4.37114e-08, -1, -4.37114e-08, 0.0884503, 0, 1.40094)
-mesh = SubResource("PrismMesh_cwt5k")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/tail"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0984257, -5.96046e-08, 1.54856)
 shape = SubResource("SphereShape3D_n3qfj")
 
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="Node/tail"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.621668)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Node/tail/CSGCombiner3D"]
+transform = Transform3D(0.222983, 0, 0, 0, -0.0181249, 0.981948, 0, -0.509594, -0.0349252, 0.120581, -0.0347281, 1.49577)
+cone = true
+material = ExtResource("1_psuch")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Node/tail/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 0.766033, 0.642801, 0, -0.642801, 0.766033, 0, -0.0657246, 2.45315)
+operation = 2
+material = ExtResource("1_psuch")
+
 [node name="body" type="CharacterBody3D" parent="Node"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.1094)
 collision_layer = 524288
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Node/body"]
-transform = Transform3D(0.745485, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.703287)
-mesh = SubResource("BoxMesh_n3qfj")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Node/body"]
 transform = Transform3D(1, 0, 0, 0, 0.00809823, -0.999967, 0, 0.999967, 0.00809823, 0, 0, 0.633881)
 shape = SubResource("CapsuleShape3D_38rrr")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="Node/body"]
+transform = Transform3D(-0.999386, 0, 0.00267284, 0, 1, 0, -0.00327927, 0, -0.814574, 0, 0, 0.691096)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="Node/body/CSGCombiner3D"]
+transform = Transform3D(0.561841, 0, 0, 0, -0.00130265, -1.00028, 0, 0.820168, -0.00158872, 0, -0.0385611, 0.602078)
+material = ExtResource("1_psuch")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Node/body/CSGCombiner3D"]
+transform = Transform3D(0.987549, 0, 0.157314, 0, 1, 0, -0.157314, 0, 0.987549, 0.688686, 0, 0)
+operation = 2
+material = ExtResource("1_psuch")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Node/body/CSGCombiner3D"]
+transform = Transform3D(0.985964, 0, -0.166958, 0, 1, 0, 0.166958, 0, 0.985964, -0.684936, -0.0151041, -0.0139794)
+operation = 2
+material = ExtResource("1_psuch")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Node/body/CSGCombiner3D"]
+transform = Transform3D(1.00279, 0, -0.108216, -0.0250196, 1.41582, -0.257555, 0.0995777, 0.355733, 1.02507, -0.0447983, 1.03381, 1.12144)
+operation = 2
+material = ExtResource("1_psuch")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Node/body/CSGCombiner3D"]
+transform = Transform3D(1.00279, -2.63716e-09, -0.108216, -0.0977692, 0.445751, -1.00645, 0.0313507, 1.3901, 0.322729, -0.0447983, -0.862351, 1.12144)
+operation = 2
+material = ExtResource("1_psuch")

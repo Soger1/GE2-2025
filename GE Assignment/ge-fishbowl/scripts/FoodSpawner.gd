@@ -8,7 +8,7 @@ extends Node3D
 @export var mouse_button_spawn: int = MOUSE_BUTTON_LEFT  # Left mouse button by default
 
 # Water surface reference
-@export var water_surface_path: NodePath = "../FishTank/tankstruct/WaterSurface"
+@export var water_surface_path: NodePath = "../FishTank/WaterSurface"
 var water_surface: Area3D
 
 # Camera reference for raycasting
@@ -56,78 +56,30 @@ func _input(event):
 		spawn_food_at_mouse()
 
 func spawn_food_at_mouse():
-	# If we don't have references to required objects, try to get them
-	if not camera:
-		camera = get_viewport().get_camera_3d()
-		if not camera:
-			push_error("No camera found!")
-			return
-	
-	if not food_scene:
-		push_error("No food scene assigned!")
-		return
-	
-	if not water_surface:
-		push_error("No water surface found!")
-		return
-		
-	# Print debug info
-	print("Attempting to spawn food. Water surface collision layer: ", water_surface.collision_layer)
-		
-	# Limit the number of food items
-	var existing_food = get_tree().get_nodes_in_group("food")
-	if existing_food.size() >= max_food_items:
-		# Remove oldest food item if at limit
-		existing_food[0].queue_free()
-	
 	# Get mouse position in world space
 	var mouse_pos = get_viewport().get_mouse_position()
 	
-	# Cast ray from camera to mouse position
+	# Cast ray from camera
 	var ray_origin = camera.project_ray_origin(mouse_pos)
-	var ray_end = ray_origin + camera.project_ray_normal(mouse_pos) * 1000  # Extend ray length
+	var ray_direction = camera.project_ray_normal(mouse_pos)
 	
-	var space_state = get_world_3d().direct_space_state
-	var ray_query = PhysicsRayQueryParameters3D.new()
-	ray_query.from = ray_origin
-	ray_query.to = ray_end
+	# Get water surface Y position
+	var water_y = water_surface.global_position.y
 	
-	# Method 1: Try with water surface collision layer (assuming it's layer 4)
-	ray_query.collision_mask = 4  # Binary: 0...0100
-	var result = space_state.intersect_ray(ray_query)
+	# Calculate where the ray intersects the water plane
+	# Plane equation: y = water_y
+	var t = (water_y - ray_origin.y) / ray_direction.y
 	
-	# Method 2: If that doesn't work, try with all layers
-	if not result:
-		ray_query.collision_mask = 0xFFFFFFFF  # All layers
-		result = space_state.intersect_ray(ray_query)
-		print("Using all collision layers instead")
+	# Calculate the intersection point
+	var spawn_position = ray_origin + ray_direction * t
 	
-	if result:
-		print("Ray hit: ", result.collider.name)
-		
-		# Update debug visualization to show where ray hit
-		debug_mesh.global_transform.origin = result.position
+	# Only spawn if t is positive (intersection is in front of camera)
+	if t > 0 and spawn_position.x >= -9 and spawn_position.x <= 9 and spawn_position.z >= -4 and spawn_position.z <= 4:
+		spawn_food_at_position(spawn_position)
+		debug_mesh.global_transform.origin = spawn_position
 		debug_mesh.visible = true
-		
-		# Either spawn at exact hit location or at water surface Y level
-		var spawn_position = result.position
-		
-		# Option 1: Spawn if we hit the exact water surface
-		if result.collider == water_surface:
-			print("Hit water surface directly")
-			spawn_food_at_position(spawn_position)
-		
-		# Option 2: Spawn even if we didn't hit water surface directly, but project to water plane
-		else:
-			print("Hit something else, projecting to water level")
-			# Get water surface global position Y
-			var water_y = water_surface.global_position.y
-			# Create a new position at the water level
-			spawn_position.y = water_y
-			spawn_food_at_position(spawn_position)
 	else:
-		print("Ray did not hit anything")
-		debug_mesh.visible = false
+		print("Ray doesn't intersect with water plane in front of camera")
 
 func spawn_food_at_position(position):
 	var food_instance = food_scene.instantiate()
