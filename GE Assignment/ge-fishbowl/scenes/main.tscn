@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bikghdvt66rgi"]
+[gd_scene load_steps=12 format=3 uid="uid://bikghdvt66rgi"]
 
 [ext_resource type="PackedScene" uid="uid://cijwtwot3fw4i" path="res://scenes/FishTank.tscn" id="1_o5qli"]
 [ext_resource type="Script" uid="uid://dj3asqgdppmwi" path="res://scripts/main.gd" id="1_o6xl0"]
@@ -9,6 +9,8 @@
 [ext_resource type="AudioStream" uid="uid://b0qrq37lpabvr" path="res://materials/resources/fishsong.wav" id="7_tipki"]
 [ext_resource type="PackedScene" uid="uid://x5gjt7kh2x20" path="res://scenes/table.tscn" id="8_tipki"]
 [ext_resource type="PackedScene" uid="uid://o1kbfc8h722c" path="res://scenes/radio.tscn" id="9_85g3d"]
+[ext_resource type="PackedScene" uid="uid://bwtgyuwgxwxsf" path="res://scenes/plant.tscn" id="10_choun"]
+[ext_resource type="PackedScene" uid="uid://bj351icsf5vss" path="res://scenes/castle.tscn" id="11_ya4ey"]
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_o6xl0")
@@ -50,3 +52,12 @@ transform = Transform3D(14, 0, 0, 0, 14, 0, 0, 0, 14, -2.45678, -12.1018, 2.4992
 
 [node name="Radio" parent="." instance=ExtResource("9_85g3d")]
 transform = Transform3D(1.67643, 0, 1.09068, 0, 2, 0, -1.09068, 0, 1.67643, -14.3189, -3.35191, 3.81347)
+
+[node name="Plant" parent="." instance=ExtResource("10_choun")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.41522, -4.6008, -3.08202)
+
+[node name="Plant2" parent="." instance=ExtResource("10_choun")]
+transform = Transform3D(0.880751, -0.199342, -0.429581, 0.109489, 0.968231, -0.224814, 0.460749, 0.150971, 0.874596, 4.26231, -6.92818, -1.11217)
+
+[node name="Castle" parent="." instance=ExtResource("11_ya4ey")]
+transform = Transform3D(1.47997, -0.00227404, 1.34524, -0.0559373, 1.99816, 0.0649176, -1.34408, -0.0856627, 1.47855, -6.28724, -4.47194, -1.71834)

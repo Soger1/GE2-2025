@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dj6iwh7dh0feg"]
+
+[ext_resource type="Texture2D" uid="uid://cwhjaxmcck73p" path="res://materials/resources/lunarrock_d.png" id="1_xcelk"]
+
+[resource]
+albedo_texture = ExtResource("1_xcelk")

@@ -1,0 +1,55 @@
+[gd_scene load_steps=3 format=3 uid="uid://bj351icsf5vss"]
+
+[ext_resource type="Material" uid="uid://dj6iwh7dh0feg" path="res://materials/rock.tres" id="1_bly62"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_0ysgy"]
+
+[node name="Castle" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.240952, 0)
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="StaticBody3D/CSGCombiner3D"]
+transform = Transform3D(1.61826, 0, 0, 0, 0.754801, 0, 0, 0, 1.61826, 0, 0.961379, 0)
+material = ExtResource("1_bly62")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="StaticBody3D/CSGCombiner3D"]
+transform = Transform3D(2.0138, 0, 0, 0, 0.271413, 0, 0, 0, 1.96234, 0, 1.83224, 0)
+material = ExtResource("1_bly62")
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="StaticBody3D/CSGCombiner3D"]
+transform = Transform3D(1.61826, 0, 0, 0, 0.754801, 0, 0, 0, 1.61826, 0, 2.59951, 0)
+operation = 2
+material = ExtResource("1_bly62")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StaticBody3D/CSGCombiner3D"]
+transform = Transform3D(2.22298, 0, 0, 0, 1, 0, 0, 0, 0.330337, 0, 2.45242, 0)
+operation = 2
+material = ExtResource("1_bly62")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="StaticBody3D/CSGCombiner3D"]
+transform = Transform3D(1.60089, 0, -0.229193, 0, 1, 0, 1.54234, 0, 0.237892, 0, 2.45242, 0)
+operation = 2
+material = ExtResource("1_bly62")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="StaticBody3D/CSGCombiner3D"]
+transform = Transform3D(-0.0029875, 0, -0.330336, 0, 1, 0, 2.22298, 0, -0.00044392, 0, 2.45242, 0)
+operation = 2
+material = ExtResource("1_bly62")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="StaticBody3D/CSGCombiner3D"]
+transform = Transform3D(-1.58427, 0, -0.231729, 0, 1, 0, 1.55941, 0, -0.235423, 0, 2.45242, 0)
+operation = 2
+material = ExtResource("1_bly62")
+
+[node name="CSGCylinder3D4" type="CSGCylinder3D" parent="StaticBody3D/CSGCombiner3D"]
+transform = Transform3D(1.08287, 0, 0, 0, 0.0116463, 2.14475, 0, -0.946456, 0.0263915, 0, -0.223284, -0.185509)
+operation = 2
+height = 2.35645
+material = ExtResource("1_bly62")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(2, 0, 0, 0, 1.14028, 0, 0, 0, 2, 0, 0.740175, 0)
+shape = SubResource("CylinderShape3D_0ysgy")
