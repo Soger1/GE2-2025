@@ -7,8 +7,8 @@ uniform float metallic : hint_range(0.0, 1.0) = 0.1;
 uniform float roughness : hint_range(0.0, 1.0) = 0.05;
 
 // Wave properties
-uniform float wave_speed = 0.01;
-uniform float wave_strength = 0.01;
+uniform float wave_speed = 0.0001;
+uniform float wave_strength = 0.0001;
 uniform vec2 wave_direction_1 = vec2(0.00, 0.0);
 uniform vec2 wave_direction_2 = vec2(0.00, 0.0);
 uniform sampler2D wave_noise: hint_default_white;

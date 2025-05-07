@@ -32,7 +32,6 @@ bones = [NodePath("../Fish"), NodePath("../body"), NodePath("../tail")]
 [node name="Fish" type="CharacterBody3D" parent="Node"]
 collision_layer = 524288
 script = ExtResource("1_431eu")
-fishscene = null
 
 [node name="Behaviors" type="Node" parent="Node/Fish"]
 
