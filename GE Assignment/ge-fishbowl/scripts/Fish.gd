@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+# this is the fish boid
+
 @export var max_speed: float = 2.0
 @export var mass: float = 1.0
 @export var hunger_rate: float = 0.1
@@ -22,8 +24,6 @@ var food_seeking_behavior
 var energy_conservation_behavior
 var flocking_behavior
 
-@export var debug_mode: bool = true
-
 func _ready():
 	collision_layer = 2
 	collision_mask = 1 | 4 | 8
@@ -31,12 +31,14 @@ func _ready():
 	
 	add_to_group("fish")
 	
+	#behaviours for fish
 	wander_behavior = $Behaviors/WanderBehavior
 	boundary_behavior = $Behaviors/BoundaryBehavior
 	food_seeking_behavior = $Behaviors/FoodSeekingBehavior
 	energy_conservation_behavior = $Behaviors/EnergyConservationBehavior
 	flocking_behavior = $Behaviors/FlockingBehavior
 	
+	#setup the behaviours
 	if wander_behavior:
 		wander_behavior.initialize(self)
 	if boundary_behavior:
@@ -48,11 +50,8 @@ func _ready():
 	if flocking_behavior:
 		flocking_behavior.initialize(self)
 		
+	#randomise the weights of each behviour to make each fish more unique
 	randomize_fish()
-	
-	if debug_mode:
-		print("Fish initialized with collision layer: ", collision_layer)
-		print("Fish collision mask: ", collision_mask)
 		
 func randomize_fish():
 	max_speed = max_speed * randf_range(0.8, 1.2)
@@ -62,6 +61,7 @@ func randomize_fish():
 	flocking_weight *= randf_range(0.8, 1.2)
 	pass
 
+# physics process for applying force from behaviours
 func _physics_process(delta):
 	hunger = min(hunger + hunger_rate * delta, 1.0)
 	food_weight = 2.0 *(1 + hunger)
@@ -91,15 +91,11 @@ func _physics_process(delta):
 	
 	handle_collisions()
 
-func apply_steering(steering: Vector3, delta: float):
+func apply_steering(steering: Vector3, delta: float): # apply the forces made from the behaviours and move
 	steering = steering.limit_length(max_speed)
-	
 	steering = steering / mass
-	
 	velocity += steering * delta
-	
 	velocity = velocity.limit_length(max_speed)
-	
 	if velocity.length() > 0.1:
 		var target_transform = transform.looking_at(transform.origin + velocity, Vector3.UP)
 		transform = transform.interpolate_with(target_transform, rotation_speed * delta)
@@ -109,23 +105,18 @@ func handle_collisions():
 		var collision = get_slide_collision(i)
 		var collider = collision.get_collider()
 		
-		if collider.is_in_group("food"):
-			if debug_mode:
-				print("Fish collided with food: ", collider.name)
+		if collider.is_in_group("food"): #if collide with food eat it
 			eat_food(collider)
 
 func eat_food(food_item):
-	# Reduce hunger
+	#reduce hunger
 	hunger = max(hunger - 0.5, 0)
 	repo = repo + 1
-	if repo >= 10:
+	if repo >= 10: #if repo is more then 10 reproduce
 		repo = 0
 		var fish = fishscene.instantiate()
 		fish.transform.origin = global_transform.origin
 		get_parent().add_child(fish)
-	
-	if debug_mode:
-		print("Fish eating food. New hunger level: ", hunger)
 	food_item.queue_free()
 	emit_signal("food_eaten")
 signal food_eaten

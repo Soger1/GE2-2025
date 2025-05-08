@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://b3nl5ppd4g13i"]
 
 [ext_resource type="Script" uid="uid://j40jwilsljkk" path="res://scripts/Fish.gd" id="1_431eu"]
-[ext_resource type="Script" uid="uid://c23j8bg8rxva1" path="res://spine_animator.gd" id="1_cwt5k"]
+[ext_resource type="Script" uid="uid://c23j8bg8rxva1" path="res://scripts/spine_animator.gd" id="1_cwt5k"]
 [ext_resource type="Material" uid="uid://cavr8ieoeiukb" path="res://materials/fish.tres" id="1_psuch"]
 [ext_resource type="Script" uid="uid://daihqlo6dobod" path="res://scripts/BoundryBehavior.gd" id="3_38rrr"]
 [ext_resource type="Script" uid="uid://cs6fsjhol5qm6" path="res://scripts/EnergyConservationBehavior.gd" id="4_cwt5k"]

@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://br6cnlycv2osd"]
+
+[ext_resource type="Material" uid="uid://dj6iwh7dh0feg" path="res://materials/rock.tres" id="1_72t4t"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hxjgs"]
+albedo_color = Color(0.975222, 0.94342, 7.70092e-07, 1)
+
+[node name="Lamp" type="Node3D"]
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 0.172935, 0, 0, 0, 1, 0, 0.172813, 0)
+cone = true
+material = ExtResource("1_72t4t")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.123768, 0, 0, 0, 1, 0, 0, 0, -0.0966078, 0, 1.20857, 0)
+material = ExtResource("1_72t4t")
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 0.172935, 0, 0, 0, 1, 0, 0.135837, 0)
+operation = 2
+cone = true
+material = SubResource("StandardMaterial3D_hxjgs")

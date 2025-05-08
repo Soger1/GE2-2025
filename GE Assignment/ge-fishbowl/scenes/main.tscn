@@ -1,19 +1,31 @@
-[gd_scene load_steps=12 format=3 uid="uid://bikghdvt66rgi"]
+[gd_scene load_steps=18 format=3 uid="uid://bikghdvt66rgi"]
 
 [ext_resource type="PackedScene" uid="uid://cijwtwot3fw4i" path="res://scenes/FishTank.tscn" id="1_o5qli"]
-[ext_resource type="Script" uid="uid://dj3asqgdppmwi" path="res://scripts/main.gd" id="1_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://b3nl5ppd4g13i" path="res://scenes/Fish.tscn" id="2_0wfyh"]
-[ext_resource type="Script" uid="uid://b2pfptpgrsles" path="res://scripts/camera_wasd.gd" id="2_tbgi4"]
+[ext_resource type="Script" uid="uid://dxg42malfp2a6" path="res://scripts/camera.gd" id="2_choun"]
 [ext_resource type="Script" uid="uid://bl4arguabp5kt" path="res://scripts/FoodSpawner.gd" id="3_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://bx4q8si2i16oc" path="res://scenes/Food.tscn" id="4_tbgi4"]
 [ext_resource type="AudioStream" uid="uid://b0qrq37lpabvr" path="res://materials/resources/fishsong.wav" id="7_tipki"]
 [ext_resource type="PackedScene" uid="uid://x5gjt7kh2x20" path="res://scenes/table.tscn" id="8_tipki"]
 [ext_resource type="PackedScene" uid="uid://o1kbfc8h722c" path="res://scenes/radio.tscn" id="9_85g3d"]
 [ext_resource type="PackedScene" uid="uid://bwtgyuwgxwxsf" path="res://scenes/plant.tscn" id="10_choun"]
+[ext_resource type="Material" uid="uid://dj6iwh7dh0feg" path="res://materials/rock.tres" id="11_eb6dy"]
 [ext_resource type="PackedScene" uid="uid://bj351icsf5vss" path="res://scenes/castle.tscn" id="11_ya4ey"]
+[ext_resource type="Material" uid="uid://dh1i4ltc3b5cq" path="res://materials/wood.tres" id="12_eb6dy"]
+[ext_resource type="PackedScene" uid="uid://br6cnlycv2osd" path="res://scenes/lamp.tscn" id="13_trceg"]
+
+[sub_resource type="GDScript" id="GDScript_choun"]
+script/source = "extends Node3D
+"
+
+[sub_resource type="BoxMesh" id="BoxMesh_trceg"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_a8y0u"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_jkv2x"]
 
 [node name="Node3D" type="Node3D"]
-script = ExtResource("1_o6xl0")
+script = SubResource("GDScript_choun")
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="."]
 
@@ -23,16 +35,16 @@ script = ExtResource("1_o6xl0")
 transform = Transform3D(10, 0, 0, 0, 7.244, 0, 0, 0, 9.52, 0, 0, 0)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.0482396, 0.998836, 0, -0.998836, 0.0482396, -0.653761, 17.9023, 0.499682)
+transform = Transform3D(1, 0, 0, 0, 0.0482396, 0.998836, 0, -0.998836, 0.0482396, 0.507929, 21.7356, 3.18369)
 light_energy = 7.99
 light_indirect_energy = 4.2
 light_volumetric_fog_energy = 4.352
-spot_range = 38.865
-spot_angle = 62.14
+spot_range = 4096.0
+spot_angle = 41.57
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.728933, 0.684585, 0, -0.684585, 0.728933, 0, 6.04475, 5.82816)
-script = ExtResource("2_tbgi4")
+transform = Transform3D(1, 0, 0, 0, 0.728933, 0.684585, 0, -0.684585, 0.728933, 0, 11.6486, 18.5421)
+script = ExtResource("2_choun")
 
 [node name="Fish" parent="." instance=ExtResource("2_0wfyh")]
 transform = Transform3D(3.135, 0, 0, 0, 0.071, 0, 0, 0, 2, 0.0141765, 1.19209e-07, -0.0343152)
@@ -48,7 +60,7 @@ volume_db = -10.09
 autoplay = true
 
 [node name="Table" parent="." instance=ExtResource("8_tipki")]
-transform = Transform3D(14, 0, 0, 0, 14, 0, 0, 0, 14, -2.45678, -12.1018, 2.49924)
+transform = Transform3D(14, 0, 0, 0, 14, 0, 0, 0, 14, -2.45678, -12.1018, 1.33719)
 
 [node name="Radio" parent="." instance=ExtResource("9_85g3d")]
 transform = Transform3D(1.67643, 0, 1.09068, 0, 2, 0, -1.09068, 0, 1.67643, -14.3189, -3.35191, 3.81347)
@@ -61,3 +73,25 @@ transform = Transform3D(0.880751, -0.199342, -0.429581, 0.109489, 0.968231, -0.2
 
 [node name="Castle" parent="." instance=ExtResource("11_ya4ey")]
 transform = Transform3D(1.47997, -0.00227404, 1.34524, -0.0559373, 1.99816, 0.0649176, -1.34408, -0.0856627, 1.47855, -6.28724, -4.47194, -1.71834)
+
+[node name="Node3D" parent="." instance=ExtResource("2_0wfyh")]
+transform = Transform3D(-0.354321, 0, 0, 0, 1, 0, 0, 0, 0.648514, -1.37276, 2.84319, 0.973951)
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="."]
+transform = Transform3D(69.8562, 0, 0, 0, 41.2253, 0, 0, 0, 42.9183, -8.22152, 8.79367, 15.9374)
+flip_faces = true
+mesh = SubResource("BoxMesh_trceg")
+material = ExtResource("11_eb6dy")
+
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="."]
+transform = Transform3D(21.5771, 0, 0, 0, 36.8881, 0, 0, 0, 1, -28.8288, 0, -5.66425)
+mesh = SubResource("BoxMesh_a8y0u")
+material = ExtResource("12_eb6dy")
+
+[node name="CSGMesh3D3" type="CSGMesh3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.8861, 1.9798, -5.24462)
+mesh = SubResource("CylinderMesh_jkv2x")
+material = ExtResource("11_eb6dy")
+
+[node name="Lamp" parent="." instance=ExtResource("13_trceg")]
+transform = Transform3D(9.46194, 0, 0, 0, 9.46194, 0, 0, 0, 9.46194, 0.729791, 19.5921, 3.03343)

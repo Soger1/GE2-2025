@@ -1,5 +1,7 @@
 extends Node
 
+#behaviour to have the fish seek food
+
 @export var detection_radius: float = 10.0
 @export var arrival_radius: float = 1.0 
 @export var max_targets: int = 5      
@@ -8,13 +10,14 @@ var parent_fish = null
 var current_target = null
 var target_position = null
 
+#setup fish
 func initialize(fish):
 	parent_fish = fish
 
-func _process(delta):
+func _process(delta): #find food
 	find_closest_food()
 
-func calculate_steering():
+func calculate_steering(): #calculate force to find nearest food
 	if parent_fish == null or current_target == null:
 		return Vector3.ZERO
 	
@@ -27,7 +30,7 @@ func calculate_steering():
 
 	return target_velocity - parent_fish.velocity
 
-func find_closest_food():
+func find_closest_food(): # find closest food
 	if parent_fish == null:
 		return
 	

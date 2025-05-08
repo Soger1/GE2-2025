@@ -1,15 +1,17 @@
 extends Node3D
 
+# this script enables the spawning of food using the mouse pointer
+
 @export var food_scene: PackedScene
 @export var max_food_items: int = 20
 @export var mouse_button_spawn: int = MOUSE_BUTTON_LEFT
 @export var water_surface_path: NodePath = "../FishTank/WaterSurface"
 var water_surface: Area3D
 
-@onready var camera = get_viewport().get_camera_3d() 
+@onready var camera = get_viewport().get_camera_3d() #get the camera
 var debug_mesh: MeshInstance3D
 
-func _ready():
+func _ready(): #setup spawning mesh to give visual feedback on food being made
 	debug_mesh = MeshInstance3D.new()
 	var sphere = SphereMesh.new()
 	sphere.radius = 0.2
@@ -18,30 +20,16 @@ func _ready():
 	mat.albedo_color = Color.RED
 	debug_mesh.material_override = mat
 	add_child(debug_mesh)
-	debug_mesh.visible = false
-
-	if not food_scene:
-		push_error("Food scene not assigned to FoodSpawner!")
-		return
 	
-	if water_surface_path:
+	if water_surface_path: #setup water surface
 		if has_node(water_surface_path):
 			water_surface = get_node(water_surface_path)
-			if not water_surface or not water_surface is Area3D:
-				push_error("Node at path is not an Area3D: " + str(water_surface_path))
-		else:
-			push_error("Could not find node at path: " + str(water_surface_path))
-			var candidates = get_tree().get_nodes_in_group("water_surface")
-			if candidates.size() > 0:
-				water_surface = candidates[0]
-				print("Found water surface in 'water_surface' group instead")
-	else:
-		push_error("Water surface path not assigned to FoodSpawner!")
-
-func _input(event):
+			
+func _input(event):# wait for mouse click
 	if event is InputEventMouseButton and event.button_index == mouse_button_spawn and event.pressed:
 		spawn_food_at_mouse()
 
+#called when mouse pressed to spawn food where mouse is only if it intersects with water surface
 func spawn_food_at_mouse():
 	var mouse_pos = get_viewport().get_mouse_position()
 	var ray_origin = camera.project_ray_origin(mouse_pos)
@@ -57,11 +45,11 @@ func spawn_food_at_mouse():
 	else:
 		print("Ray doesn't intersect with water plane in front of camera")
 
+# create the food at point
 func spawn_food_at_position(position):
 	var food_instance = food_scene.instantiate()
 	add_child(food_instance)
 	food_instance.global_transform.origin = position
 	food_instance.add_to_group("food")
-	print("Food spawned at: ", position)
 	await get_tree().create_timer(1.0).timeout
-	debug_mesh.visible = false
+	debug_mesh.visible = false # disable debug mesh when done

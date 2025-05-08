@@ -11,14 +11,16 @@ var parent_fish = null
 
 @export var debug_mode: bool = false
 
+#setup fish
 func initialize(fish):
 	parent_fish = fish
 
+#calculate the force for the behaviour
 func calculate_steering():
 	if parent_fish == null:
 		return Vector3.ZERO
 
-	var all_fish = get_tree().get_nodes_in_group("fish")
+	var all_fish = get_tree().get_nodes_in_group("fish") #get other fish
 	var neighbors = []
 	for fish in all_fish:
 		if fish != parent_fish:
@@ -42,6 +44,7 @@ func calculate_steering():
 	
 	return flocking_force
 
+#calculate the separation between fish
 func calculate_separation(neighbors: Array) -> Vector3:
 	var separation_force = Vector3.ZERO
 	
@@ -54,6 +57,7 @@ func calculate_separation(neighbors: Array) -> Vector3:
 	
 	return separation_force
 
+#calcualte the force needed to maintain cohesion
 func calculate_cohesion(neighbors: Array) -> Vector3:
 	var center_of_mass = Vector3.ZERO
 	for fish in neighbors:
@@ -62,6 +66,7 @@ func calculate_cohesion(neighbors: Array) -> Vector3:
 	var to_center = center_of_mass - parent_fish.global_transform.origin
 	return to_center.normalized() * (to_center.length() / neighbor_radius)
 
+#calculate the force needed to maintain alignement with neighbours
 func calculate_alignment(neighbors: Array) -> Vector3:
 	var avg_velocity = Vector3.ZERO
 	for fish in neighbors:
