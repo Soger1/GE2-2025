@@ -11,7 +11,9 @@ i want to simulate that fishtank using boids to simulate the fish. the user will
 
 ## Video:
 
-[![YouTube](http://img.youtube.com/vi/J2kHSSFA4NU/0.jpg)](https://youtu.be/SjS7tecjipg)
+[![YouTube](https://github.com/user-attachments/assets/a1482916-3a5c-46ae-a294-c729616bf161)](https://youtu.be/SjS7tecjipg)
+
+
 
 ## Screenshots
 
