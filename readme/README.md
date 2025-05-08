@@ -33,7 +33,21 @@ these weights are slightly random for each fish to introduce variance between th
 the boid goes through each behaviour attached in the fish scene and setup in the script and calls the calculate steering function on
 each of them and this results in the final direction and velocity of the fish in a vector3 result.
 
-the boundary behaviour works 
+the boundary behaviour works by having a set distance for the size of the tank and then calculating the distance to all the walls of the tank and then chosing the best path
+away from the walls.
+
+the energy conservation behaviour works by generating a resting spot fot the fish in which it will rest, this spot will get changed randomly every 1000 frames or so, it will then
+try calculate a force to bring it to that loaction
+
+the flocking behaviour works by getting all nearby fish and trying to keep cohesion and direction with those other fish. in order to simulate a flock of fish
+in order to do this seperation, alignment and cohesion vectors are calcualted and then these are combined to create the flocking force vector used to simulate
+flocking.
+
+the food seeking behaviour is simple if their is food nearby, it will calculate a vector towards it, otherwise it wont do anything. it gets the vector
+by getting the differences between its current position and the closest piece of food position and then it will return a vector that tries to arrive at
+that food piece slowly.
+
+the wander behaviour works by generating wander targets near the fish to move to, and then making a vector towards that target to be used by the boid.
 
 the food is the main method of player interaction, fish priortise eating food and will repoduce when given enough food.
 the food is created using a food instnace scene and a foodspawner script which spawns the food along the top of the tank using a ray cast to detect
@@ -61,6 +75,7 @@ head of the fish using lerp to make it look smooth.
 
 Models made in Godot using CSG Combiners
 Textures obtained from Opengameart.org
+waterdrop audio from Opengameart.org
 song made by me
 
 - What im most proud of
@@ -75,5 +90,6 @@ i learned alot about how boids work and how to combine and use vector3s to creat
 # References
 * [1](https://github.com/skooter500/miniature-rotary-phone/blob/main/minature-rotary-phone/behaviors/spine_animator.gd)
 * [2] https://godotengine.org/asset-library/asset/701
+
 
 
