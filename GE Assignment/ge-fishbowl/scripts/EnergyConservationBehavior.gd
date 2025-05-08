@@ -16,7 +16,7 @@ func initialize(fish):
 
 #find a new resting spot with a 1% chance
 func _process(delta):
-	if randf() < 0.01:  
+	if randf() < 0.001:  
 		find_resting_spot()
 
 # caluclate force for the boid

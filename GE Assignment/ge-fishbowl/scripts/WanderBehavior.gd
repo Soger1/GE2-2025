@@ -28,7 +28,7 @@ func calculate_steering(): #calucate steering force for boid to seek target
 	if parent_fish == null:
 		return Vector3.ZERO
 	var circle_center = parent_fish.velocity.normalized() * wander_distance
-	var displacement = Vector3(wander_target.x, wander_target.y, wander_target.z) * wander_radius
+	var displacement = wander_target * wander_radius
 	var target = circle_center + displacement
 	return target - parent_fish.velocity
 
