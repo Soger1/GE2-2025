@@ -7,12 +7,14 @@ extends RigidBody3D
 
 var time_alive: float = 0.0
 var initial_position: Vector3
+@onready var audio_player = $AudioStreamPlayer3D
 
 #set food position
 func _ready():
 	initial_position = global_transform.origin
 	add_to_group("food")
 	gravity_scale = 0.1
+	audio_player.play()
 
 #have the food sink then stop slowly
 func _process(delta):

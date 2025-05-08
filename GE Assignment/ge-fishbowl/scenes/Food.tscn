@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bx4q8si2i16oc"]
+[gd_scene load_steps=6 format=3 uid="uid://bx4q8si2i16oc"]
 
 [ext_resource type="Script" uid="uid://cpsr8tuvvdyao" path="res://scripts/FoodItem.gd" id="1_2jwtx"]
 [ext_resource type="Material" uid="uid://k0366s72orde" path="res://materials/resources/food.tres" id="2_w7sr0"]
+[ext_resource type="AudioStream" uid="uid://e2vlai5onua3" path="res://materials/resources/water_drops.wav" id="3_w7sr0"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_rjrnx"]
 
@@ -20,3 +21,6 @@ shape = SubResource("SphereShape3D_rjrnx")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.0536407, -0.0189565, -0.0205905, 0.0279878, 0.0363315, 0.0394632, 0, -0.0445119, 0.0409796, 0, 0, 0)
 mesh = SubResource("BoxMesh_2jwtx")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_w7sr0")
