@@ -33,6 +33,8 @@ these weights are slightly random for each fish to introduce variance between th
 the boid goes through each behaviour attached in the fish scene and setup in the script and calls the calculate steering function on
 each of them and this results in the final direction and velocity of the fish in a vector3 result.
 
+the boundary behaviour works 
+
 the food is the main method of player interaction, fish priortise eating food and will repoduce when given enough food.
 the food is created using a food instnace scene and a foodspawner script which spawns the food along the top of the tank using a ray cast to detect
 the watersurface object. then the food will float down into the water until either 60 secs pass or the food is eaten.
